@@ -62,7 +62,7 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
         <Divider />
         <List>
           {notes.map((note) => (
-            <ListItem key={note.id} disablePadding>
+            <ListItem key={note.id} disablePadding onClick={onToggleDrawer}>
               <ListItemButton onClick={() => activateNote(note)}>
                 <ListItemIcon>
                   <TurnedInNot />

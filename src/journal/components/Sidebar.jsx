@@ -1,36 +1,26 @@
 import {
   Box,
   Drawer,
-  Grid,
   Toolbar,
   Typography,
   Divider,
   List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   IconButton,
 } from "@mui/material";
 
-import { MenuOutlined, TurnedInNot } from "@mui/icons-material";
+import { MenuOutlined } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  openOrCloseDrawer,
-  setActiveNote,
-} from "../../store/journal/journalSlice";
-import { useState } from "react";
+import { openOrCloseDrawer } from "../../store/journal/journalSlice";
+import { SidebarItem } from "./SidebarItem";
 
 export const Sidebar = ({ drawerWidth = 240 }) => {
   const dispatch = useDispatch();
-  const activateNote = (note) => {
-    dispatch(setActiveNote(note));
-  };
+
+  const { displayName } = useSelector((state) => state.auth);
+  const { notes, toggleDrawer } = useSelector((state) => state.journal);
   const onToggleDrawer = () => {
     dispatch(openOrCloseDrawer());
   };
-  const { displayName } = useSelector((state) => state.auth);
-  const { notes, toggleDrawer } = useSelector((state) => state.journal);
   return (
     <Box
       component="nav"
@@ -62,17 +52,7 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
         <Divider />
         <List>
           {notes.map((note) => (
-            <ListItem key={note.id} disablePadding onClick={onToggleDrawer}>
-              <ListItemButton onClick={() => activateNote(note)}>
-                <ListItemIcon>
-                  <TurnedInNot />
-                </ListItemIcon>
-                <Grid container>
-                  <ListItemText primary={note.title} />
-                  <ListItemText secondary={note.body} />
-                </Grid>
-              </ListItemButton>
-            </ListItem>
+            <SidebarItem key={note.id} {...note} />
           ))}
         </List>
       </Drawer>

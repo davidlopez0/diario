@@ -10,19 +10,27 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  IconButton,
 } from "@mui/material";
 
-import { TurnedInNot } from "@mui/icons-material";
+import { MenuOutlined, TurnedInNot } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveNote } from "../../store/journal/journalSlice";
+import {
+  openOrCloseDrawer,
+  setActiveNote,
+} from "../../store/journal/journalSlice";
+import { useState } from "react";
 
 export const Sidebar = ({ drawerWidth = 240 }) => {
   const dispatch = useDispatch();
   const activateNote = (note) => {
     dispatch(setActiveNote(note));
   };
+  const onToggleDrawer = () => {
+    dispatch(openOrCloseDrawer());
+  };
   const { displayName } = useSelector((state) => state.auth);
-  const { notes } = useSelector((state) => state.journal);
+  const { notes, toggleDrawer } = useSelector((state) => state.journal);
   return (
     <Box
       component="nav"
@@ -32,14 +40,24 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
         variant="permanent"
         open
         sx={{
-          display: { xs: "block" },
+          display: { xs: toggleDrawer ? "block" : "none", sm: "block" },
           "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          padding: "1",
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
           <Typography variant="h6" noWrap component="div">
             {displayName}
           </Typography>
+
+          <IconButton
+            color="inherit"
+            edge="start"
+            sx={{ mr: 2, display: { sm: "none" } }}
+            onClick={onToggleDrawer}
+          >
+            <MenuOutlined />
+          </IconButton>
         </Toolbar>
         <Divider />
         <List>

@@ -7,6 +7,7 @@ export const journalSlice = createSlice({
     messageSave: '',
     notes: [],
     active: null,
+    toggleDrawer: false,
   },
     reducers: {
      savingNewNote: (state) => {
@@ -54,6 +55,9 @@ export const journalSlice = createSlice({
          state.notes = state.notes.filter( note => note.id != action.payload.id );
          state.active = null;
      },
+     openOrCloseDrawer: (state) => {
+        state.toggleDrawer = !state.toggleDrawer;
+     },
    },
 })
 
@@ -65,4 +69,5 @@ export const {  addNewEmptyNote,
                 deleteNoteById,
                 savingNewNote, 
                 setPhotosToActiveNote,
-                clearNotesLogout } = journalSlice.actions;
+                clearNotesLogout,
+                openOrCloseDrawer, } = journalSlice.actions;

@@ -20,8 +20,12 @@ export const NothingSelectedView = () => {
         <StarOutline sx={{ fontSize: 100, color: "white" }} />
       </Grid>
 
-      <Grid item xs={12}>
-        <Typography color="white" variant="h5">
+      <Grid
+        item
+        xs={12}
+        sx={{ justifyContent: "center", alignItems: "center" }}
+      >
+        <Typography color="white" variant="h5" sx={{ textAlign: "center" }}>
           Selecciona o crea una entrada
         </Typography>
       </Grid>

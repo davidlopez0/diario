@@ -40,7 +40,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
           alignItems="center"
         >
           <Typography variant="h6" noWrap component="div">
-            {"Nuestro diario<3"}
+            {"Diario"}
           </Typography>
 
           <IconButton color="error" onClick={onLogout}>
